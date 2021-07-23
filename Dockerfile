@@ -1,3 +1,3 @@
 FROM ubuntu
-MAINTAINER Prithvi
+MAINTAINER Prudhvi
 echo "Hello World!!!"
