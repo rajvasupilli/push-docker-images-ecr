@@ -1,3 +1,3 @@
 FROM ubuntu
 MAINTAINER Prudhvi
-echo "Hello World!!!"
+RUN echo "Hello World!!!"
