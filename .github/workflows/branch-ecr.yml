@@ -1,6 +1,8 @@
 on:
   push:
-    branches-ignore: [ 'main' ]
+    branches:
+      - '*'
+      - '!main'
 
 name: Push Extensions Docker Images to ECR
 
