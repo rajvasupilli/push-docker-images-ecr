@@ -8,7 +8,7 @@ name: Push Extensions Docker Images to ECR
 
 jobs:
   deploy:
-    name: Deploy
+    name: Build and Push Docker Image into ECR
     runs-on: ubuntu-latest
 
     steps:
@@ -25,13 +25,18 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
+      
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF##*/})"
+      id: extract_branch
 
     - name: Build, tag, and push the image to Amazon ECR
       id: build-image
       env:
         ECR_REGISTRY: 298039135746.dkr.ecr.us-east-1.amazonaws.com
         ECR_REPOSITORY: ext-repo
-        IMAGE_TAG: LATEST
+        IMAGE_TAG: steps.extract_branch.outputs.branch-latest
       run: |
         # Build a docker container and push it to ECR 
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
